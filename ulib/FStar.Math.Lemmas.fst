@@ -445,13 +445,11 @@ let lemma_mul_sub_distr a b c =
   distributivity_sub_right a b c
 
 val lemma_div_exact: a:int -> p:pos -> Lemma
-  (requires (a % p = 0))
-  (ensures  (a = p * (a / p)))
+  (a % p = 0 <==> a = p * (a / p))
 let lemma_div_exact a p = ()
 
 val div_exact_r (a:int) (n:pos) : Lemma
-  (requires (a % n = 0))
-  (ensures  (a = (a / n) * n))
+  (a % n = 0 <==> a = (a / n) * n)
 let div_exact_r (a:int) (n:pos) = lemma_div_exact a n
 
 val lemma_mod_spec: a:int -> p:pos -> Lemma
