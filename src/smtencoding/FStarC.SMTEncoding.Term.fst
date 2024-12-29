@@ -925,13 +925,12 @@ and mkPrelude z3options =
                 (declare-fun ApplyTF (Term Fuel) Term)\n\
                 (declare-fun ApplyTT (Term Term) Term)\n\
                 (declare-fun Prec (Term Term) Bool)\n\
-                (assert (forall ((x Term) (y Term) (z Term))\n\
-                                (! (implies (and (Prec x y) (Prec y z))\n\
-                                            (Prec x z))
-                                   :pattern ((Prec x z) (Prec x y)))))\n\
+                (declare-fun PrecToInt (Term) Int)\n\
                 (assert (forall ((x Term) (y Term))\n\
-                         (implies (Prec x y)\n\
-                                  (not (Prec y x)))))\n\
+                                (! (= (Prec x y)\n\
+                                      (< (PrecToInt x) (PrecToInt y)))\n\
+                                  :pattern ((Prec x y)))\n\
+                        ))\n\
                 (declare-fun Closure (Term) Term)\n\
                 (declare-fun ConsTerm (Term Term) Term)\n\
                 (declare-fun ConsFuel (Fuel Term) Term)\n\
